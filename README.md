@@ -29,10 +29,10 @@ MCP tools exposed by this server:
 ## Quick install (recommended)
 
 ```bash
-npx -y @web4w3/install gmail
+npx -y @web4w3/gmail-mcp-server
 ```
 
-No cloning or build step needed. The package is pre-compiled and available on npm as [`@web4w3/install`](https://www.npmjs.com/package/@web4w3/install).
+No cloning or build step needed. The package is pre-compiled and available on npm as [`@web4w3/gmail-mcp-server`](https://www.npmjs.com/package/@web4w3/gmail-mcp-server).
 
 ## Setup (build from source)
 
@@ -91,7 +91,7 @@ Example MCP client config entry:
   "mcpServers": {
     "gmail": {
       "command": "npx",
-      "args": ["-y", "@web4w3/install", "gmail"],
+      "args": ["-y", "@web4w3/gmail-mcp-server"],
       "env": {
         "GMAIL_USER": "you@gmail.com",
         "GMAIL_APP_PASSWORD": "app_password"

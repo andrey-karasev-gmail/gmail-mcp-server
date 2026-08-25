@@ -1,9 +1,23 @@
 {
-  "name": "gmail-mcp-server",
+  "name": "@web4w3/gmail-mcp-server",
   "version": "1.0.0",
   "description": "MCP server for Gmail read/delete/mark operations over IMAP and POP3",
   "type": "module",
   "main": "dist/index.js",
+  "bin": {
+    "gmail-mcp-server": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrey-karasev-gmail/gmail-mcp-server.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
