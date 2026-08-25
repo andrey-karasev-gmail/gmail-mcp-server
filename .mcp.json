@@ -3,7 +3,7 @@
     "gmail": {
       "command": "npm",
       "args": ["run", "dev"],
-      "cwd": "."
+      "cwd": "/Users/n653787/Sources/MCP/gmail-mcp-server"
     }
   }
 }
