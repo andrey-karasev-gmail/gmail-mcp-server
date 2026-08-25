@@ -15,6 +15,10 @@
     "type": "git",
     "url": "https://github.com/andrey-karasev-gmail/gmail-mcp-server.git"
   },
+  "homepage": "https://web4w3.com/projects/gmail-mcp-server",
+  "bugs": {
+    "url": "https://github.com/andrey-karasev-gmail/gmail-mcp-server/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
