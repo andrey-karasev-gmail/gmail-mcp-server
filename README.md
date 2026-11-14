@@ -74,6 +74,9 @@ npm run dev
 - `GMAIL_HOST_POP3`: POP3 host (default: `pop.gmail.com`)
 - `GMAIL_PORT_POP3`: POP3 port (default: `995`)
 - `POP3_MARKS_FILE`: local file used to persist POP3 read/unread marks
+- `MCP_TRANSPORT`: `stdio` (default) or `http`
+- `MCP_HTTP_PORT`: port for HTTP mode (default: `3101`)
+- `MCP_HTTP_TOKEN`: Bearer token required on every request in HTTP mode (required when `MCP_TRANSPORT=http`)
 
 ## Protocol Notes
 
@@ -99,6 +102,29 @@ Example MCP client config entry:
     }
   }
 }
+```
+
+### Remote (HTTP) mode
+
+By default the server speaks MCP over stdio for a client on the same machine.
+To host it instead (for example on an always-on home server behind a tunnel):
+
+```bash
+MCP_TRANSPORT=http MCP_HTTP_PORT=3101 MCP_HTTP_TOKEN=<redacted> npm start
+```
+
+The server then listens for Streamable HTTP MCP requests on `/mcp` and
+requires the token as `Authorization: Bearer <token>` on every request.
+The endpoint is stateless; each request is independent. Keep it behind a
+private tunnel or a TLS-terminating proxy — do not expose it to the open
+internet without one.
+
+```bash
+curl -X POST http://localhost:3101/mcp \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'
 ```
 
 ## Integration with Email Analytics Agent

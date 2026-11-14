@@ -38,6 +38,22 @@ export interface GmailConfig {
     port: number;
   };
   pop3MarksFile: string;
+  /** MCP transport: "stdio" (default, local) or "http" (remote, for hosting). */
+  transport: "stdio" | "http";
+  httpPort: number;
+  /** Shared secret required as a Bearer token when transport is "http". */
+  httpToken?: string;
+}
+
+function parseTransport(): "stdio" | "http" {
+  const raw = process.env.MCP_TRANSPORT?.trim().toLowerCase();
+  if (!raw || raw === "stdio") {
+    return "stdio";
+  }
+  if (raw === "http") {
+    return "http";
+  }
+  throw new Error(`Invalid MCP_TRANSPORT: ${raw} (expected "stdio" or "http")`);
 }
 
 export function getConfig(): GmailConfig {
@@ -57,6 +73,9 @@ export function getConfig(): GmailConfig {
       host: process.env.GMAIL_HOST_POP3?.trim() || "pop.gmail.com",
       port: parsePort("GMAIL_PORT_POP3", 995)
     },
-    pop3MarksFile: path.resolve(process.cwd(), process.env.POP3_MARKS_FILE?.trim() || "./data/pop3-marks.json")
+    pop3MarksFile: path.resolve(process.cwd(), process.env.POP3_MARKS_FILE?.trim() || "./data/pop3-marks.json"),
+    transport: parseTransport(),
+    httpPort: parsePort("MCP_HTTP_PORT", 3101),
+    httpToken: process.env.MCP_HTTP_TOKEN?.trim() || undefined
   };
 }
